@@ -26,8 +26,8 @@ print(paste('Total time:',end_time-start_time))
 
 
 ### Correr las redes con cada modificación (en documentos .txt hechos a mano)
-foreach(c=62:65) %dopar% {
-  #for(c in 61:117){
+#foreach(c=62:65) %dopar% {
+for(c in 62:117){
   start <- Sys.time()
   filename <- paste(c,'.txt',sep='')
   net <- loadNetwork(filename)

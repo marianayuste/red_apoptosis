@@ -1,0 +1,31 @@
+targets, factors
+ICL, ICL & ! (Nuc1 | Nuc2)
+FAcore, ICL & ! (RNF4 & Plk1) | FAcore & ! (ATR | CASP3)
+FANCD2I, (FAcore & (ATR | ATM))
+Nuc1, (ICL & FANCD2I) & ! (Nuc1)
+RNF4, ICL & ! FAcore
+Nuc2, ICL & RNF4 & (ATR | ATM | p53) & ! ((FAcore & FANCD2I) | Nuc1)
+ADD, (ADD | Nuc1 | Nuc2) & ! (TLS)
+DSB, ((DSB | Nuc1 | Nuc2) & ! (NHEJ | FAhrr | HRR2)) | ((Nuc1 | Nuc2) & ICL & ! (p38MAPK))
+TLS, ADD & ! Plk1
+FAhrr, ((DSB & FANCD2I) & ! (p38MAPK | CASP3)) | ((DSB & (ATR | ATM) & FAcore & FANCD2I) & ! ((NHEJ & Plk1) | CASP3 | TNFa))
+HRR2, (DSB) & ! (FAhrr | NHEJ | CycB/CDK1 | TNFa)
+NHEJ, (((DSB & Nuc2) & ! ((FAcore & FANCD2I) | (DSB & (ATR | ATM) & FAhrr))) | ((DSB & (ATM | ATR)) & ! FANCD2I))
+TNFa, (ATR | ATM) & ! (FANCD2I | FAhrr | CycB/CDK1)
+p38MAPK, TNFa & ! CASP3
+ATR, (ICL | ATM) & ! ((Plk1 & NHEJ) | CASP3)
+ATM, (ATR | DSB) & ! (Wip1 | (Plk1 & NHEJ) | CASP3) | FAcore
+p53, (ATR | ATM | NHEJ | p38MAPK) & ! (Wip1 & MDM2)
+MDM2, p53 & ! (CASP3 | CycB/CDK1)
+p53a, ((p53 | p53a) & (ATR | ATM)) & ! (Wip1 | p53k)
+p21, CASP3 | p53a
+p53aRE, CASP3 | (p53a | p21) & ! (CycB/CDK1)
+p53k, CASP3 | (((p53 | p53k) & (ICL | DSB) & (NHEJ | FAhrr) & p53aRE) | (ICL & FAcore & FANCD2I & Nuc1 & ADD & DSB & ATM & ATR & p53aRE & TLS & MDM2) | ((p53 | p53k) & (p53kRE) & ICL & p53aRE)) | (ICL & FAcore & Nuc1 & RNF4 & ADD & DSB & TLS & HRR2 & ATR & ATM & p53
+p53kRE, CASP3 | (p53k & (DSB | ADD | ICL))
+CASP3, (p53kRE | TNFa) & ! IAP
+IAP, ! (p53kRE)
+Wip1, p53aRE & p53a
+CDK1/AurA, CycB/CDK1 | CDC25 | ! (p21) & ! (p53aRE | ATM | ATR)
+Plk1, CycB/CDK1 | (ICL & ATR & ! FAcore) | ((CDK1/AurA ) & ! (p53aRE | ATR | ATM))
+CDC25, CycB/CDK1 | (Plk1 & (CycB/CDK1 | CDK1/AurA) & ! ((p53aRE ) & (ATM | ATR)))
+CycB/CDK1, CycB/CDK1 & ! (CASP3) | (CDC25 & Plk1 & CDK1/AurA) & ! p21
