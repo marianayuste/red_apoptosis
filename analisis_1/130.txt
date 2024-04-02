@@ -1,5 +1,5 @@
 targets, factors
-ICL, ! (Nuc1 | Nuc2)
+ICL, ICL & ! (Nuc1 | Nuc2)
 FAcore, ICL & ! (RNF4 & Plk1) | FAcore & ! (ATR | CASP3)
 FANCD2I, (FAcore & (ATR | ATM))
 Nuc1, (ICL & FANCD2I) & ! (Nuc1)
@@ -20,7 +20,7 @@ MDM2, p53 & ! (CASP3 | CycB/CDK1)
 p53a, ((p53 | p53a) & (ATR | ATM)) & ! (Wip1 | p53k)
 p21, CASP3 | p53a
 p53aRE, CASP3 | (p53a | p21) & ! (CycB/CDK1)
-p53k, CASP3 | (((p53 | p53k) & (ICL | DSB) & (NHEJ | FAhrr) & p53aRE) | (ICL & FAcore & FANCD2I & Nuc1 & ADD & DSB & ATM & ATR & p53aRE & TLS & MDM2) | ((p53 | p53k) & (p53kRE) & ICL & p53aRE)) | (ICL & FAcore & Nuc1 & RNF4 & ADD & DSB & TLS & HRR2 & ATR & ATM & p53
+p53k, CASP3 | (((p53 | p53k) & (ICL | DSB) & (NHEJ | FAhrr) & p53aRE) | (ICL & FAcore & FANCD2I & Nuc1 & DSB & ATM & ATR & p53aRE & TLS & MDM2) | ((p53 | p53k) & (p53kRE) & ICL & p53aRE)) | (ICL & FAcore & Nuc1 & RNF4 & ADD & DSB & TLS & HRR2 & ATR & ATM & p53
 p53kRE, CASP3 | (p53k & (DSB | ADD | ICL))
 CASP3, (p53kRE | TNFa) & ! IAP
 IAP, ! (p53kRE)

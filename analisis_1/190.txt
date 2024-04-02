@@ -1,5 +1,5 @@
 targets, factors
-ICL, ! (Nuc1 | Nuc2)
+ICL, ICL & ! (Nuc1 | Nuc2)
 FAcore, ICL & ! (RNF4 & Plk1) | FAcore & ! (ATR | CASP3)
 FANCD2I, (FAcore & (ATR | ATM))
 Nuc1, (ICL & FANCD2I) & ! (Nuc1)
@@ -28,4 +28,4 @@ Wip1, p53aRE & p53a
 CDK1/AurA, CycB/CDK1 | CDC25 | ! (p21) & ! (p53aRE | ATM | ATR)
 Plk1, CycB/CDK1 | (ICL & ATR & ! FAcore) | ((CDK1/AurA ) & ! (p53aRE | ATR | ATM))
 CDC25, CycB/CDK1 | (Plk1 & (CycB/CDK1 | CDK1/AurA) & ! ((p53aRE ) & (ATM | ATR)))
-CycB/CDK1, CycB/CDK1 & ! (CASP3) | (CDC25 & Plk1 & CDK1/AurA) & ! p21
+CycB/CDK1, CycB/CDK1 & ! (CASP3) | (CDC25 & Plk1) & ! p21
