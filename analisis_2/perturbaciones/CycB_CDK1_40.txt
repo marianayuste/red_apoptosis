@@ -1,0 +1,31 @@
+targets, factors
+ICL, ICL & ! (Nuc1 | Nuc2)
+FAcore, ICL & ! (RNF4 & Plk1) | FAcore & ! (ATR | CASP3)
+FANCD2I, (FAcore & (ATR | ATM))
+Nuc1, (ICL & FANCD2I) & ! (Nuc1)
+RNF4, ICL & ! FAcore
+Nuc2, ICL & RNF4 & (ATR | ATM | p530) & ! ((FAcore & FANCD2I) | Nuc1)
+ADD, (ADD | Nuc1 | Nuc2) & ! (TLS)
+DSB, ((DSB | Nuc1 | Nuc2) & ! (NHEJ | FAhrr | HRR2)) | ((Nuc1 | Nuc2) & ICL & ! (p38MAPK))
+TLS, ADD & ! Plk1
+FAhrr, ((DSB & FANCD2I) & ! (p38MAPK | CASP3)) | ((DSB & (ATR | ATM) & FAcore & FANCD2I) & ! ((NHEJ & Plk1) | CASP3 | TNFa))
+HRR2, (DSB) & ! (FAhrr | NHEJ | CycB_CDK1 | TNFa)
+NHEJ, (((DSB & Nuc2) & ! ((FAcore & FANCD2I) | (DSB & (ATR | ATM) & FAhrr))) | ((DSB & (ATM | ATR)) & ! FANCD2I))
+TNFa, (ATR | ATM) & ! (FANCD2I | FAhrr | CycB_CDK1)
+p38MAPK, TNFa & ! CASP3
+ATR, (ICL | ATM) & ! (Wip1 | (Plk1 & NHEJ) | CASP3)
+ATM, (ATR | DSB) & ! (Wip1 | (Plk1 & NHEJ) | CASP3) | FAcore
+p530, (ATR | ATM | NHEJ | p38MAPK) & ! (Wip1 & MDM2)
+MDM2, p530 & ! (CASP3 | CycB_CDK1)
+p53a0, ((p530 | p53a0) & (ATR | ATM)) & ! (Wip1 | p53k0)
+p21, CASP3 | p53a0
+p53aRE, CASP3 | (p53a0 | p21) & ! (CycB_CDK1)
+p53k0, CASP3 | (((p530 | p53k0) & (ICL | DSB) & (NHEJ | FAhrr) & p53aRE) | (ICL & FAcore & FANCD2I & Nuc1 & ADD & DSB & ATM & ATR & p53aRE & TLS & MDM2) | ((p530 | p53k0) & (p53kRE) & ICL & p53aRE)) | (ICL & FAcore & Nuc1 & RNF4 & ADD & DSB & TLS & HRR2 & ATR & ATM & p530)
+p53kRE, CASP3 | (p53k0 & (DSB | ADD | ICL))
+CASP3, (p53kRE | TNFa) & ! IAP
+IAP, ! (p53kRE)
+Wip1, p53aRE & p53a0
+CDK1_AurA, CycB_CDK1 | CDC25 | ! (p21) & ! (p53aRE | ATM | ATR)
+Plk1, CycB_CDK1 | (ICL & ATR & ! FAcore) | ((CDK1_AurA ) & ! (p53aRE | ATR | ATM))
+CDC25, CycB_CDK1 | (Plk1 & (CycB_CDK1 | CDK1_AurA) & ! ((p53aRE ) & (ATM | ATR)))
+CycB_CDK1, (p21&!CASP3&CDK1_AurA&Plk1&CDC25&CycB_CDK1)|(p21&!CASP3&CDK1_AurA&Plk1&!CDC25&CycB_CDK1)|(p21&!CASP3&CDK1_AurA&!Plk1&CDC25&CycB_CDK1)|(p21&!CASP3&CDK1_AurA&!Plk1&!CDC25&CycB_CDK1)|(p21&!CASP3&!CDK1_AurA&Plk1&CDC25&CycB_CDK1)|(p21&!CASP3&!CDK1_AurA&Plk1&!CDC25&CycB_CDK1)|(p21&!CASP3&!CDK1_AurA&!Plk1&CDC25&CycB_CDK1)|(p21&!CASP3&!CDK1_AurA&!Plk1&!CDC25&CycB_CDK1)|(!p21&CASP3&CDK1_AurA&Plk1&CDC25&CycB_CDK1)|(!p21&CASP3&CDK1_AurA&Plk1&CDC25&!CycB_CDK1)|(!p21&!CASP3&CDK1_AurA&Plk1&CDC25&CycB_CDK1)|(!p21&!CASP3&CDK1_AurA&Plk1&CDC25&!CycB_CDK1)|(!p21&!CASP3&CDK1_AurA&Plk1&!CDC25&CycB_CDK1)|(!p21&!CASP3&CDK1_AurA&!Plk1&CDC25&CycB_CDK1)|(!p21&!CASP3&CDK1_AurA&!Plk1&!CDC25&CycB_CDK1)|(!p21&!CASP3&!CDK1_AurA&Plk1&CDC25&CycB_CDK1)|(!p21&!CASP3&!CDK1_AurA&Plk1&!CDC25&CycB_CDK1)|(!p21&!CASP3&!CDK1_AurA&!Plk1&CDC25&CycB_CDK1)|(!p21&!CASP3&!CDK1_AurA&!Plk1&!CDC25&CycB_CDK1)|(p21&!CASP3&!CDK1_AurA&!Plk1&!CDC25&!CycB_CDK1)
