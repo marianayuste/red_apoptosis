@@ -5,7 +5,8 @@ nodes = c('ICL','FAcore','FANCD2I','Nuc1','RNF4','Nuc2','ADD','DSB','TLS','FAhrr
 
 #CARGAR CADA RED PERTURBADA Y OBTENER ATRACTORES
 #las redes perturbadas elegidas se generaron en python documento bitflip.ipynb
-data <- read.csv('elegidas.txt', header = F,sep = ';')
+#data <- read.csv('elegidas.txt', header = F,sep = ';')
+data <- read.csv('faltantes.txt', header = F,sep = ';')
 elegidas <- data[-length(data)]
 
 #OBTENER LOS ATTRS DE CADA PERTURBACION
@@ -19,6 +20,5 @@ for (p in elegidas){ #para cada perturbación
   l = c()
   for (a in attr[2]){for (b in a){l <- c(l,b[1])}} #guardar solo los atractores
   write.table(l,nombre,row.names = F,col.names = F)
-  rm(list = ls())
 }
 
