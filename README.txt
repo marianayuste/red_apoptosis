@@ -9,4 +9,9 @@ Análisis 1. Perturbaciones quitando una por una las regulaciones de cada nodo
 Análisis 2. Perturbaciones bitflip a la red original
     - Se crearon las redes perturbadas en bitflip.ipynb
     - Se corrieron 150 de ellas (elegidas al azar) en bitflip.R
-    - Se leyeron los resultados y total de perturbaciones con cambios en 'bitflip.ipynb'
+    - Se leyeron los resultados y total de perturbaciones con cambios en bitflip.ipynb
+
+Análisis 3. Actualización Asíncrona
+    - Se analizó los atractores de la red original generados de forma asíncrona en analisis_3.R
+    - Los resultados se guardaron en un archivo .txt con nombre 'asyn_attrs_n.txt' donde n representa el número total de estados iniciales que se indicaron al correr la red.
+    - Se compararon los atractores obtenidos con los de la red original el analisis_3.ipynb
