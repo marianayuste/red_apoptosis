@@ -6,19 +6,21 @@ nodes = c('ICL','FAcore','FANCD2I','Nuc1','RNF4','Nuc2','ADD','DSB','TLS','FAhrr
 #CARGAR CADA RED PERTURBADA Y OBTENER ATRACTORES
 #las redes perturbadas elegidas se generaron en python documento bitflip.ipynb
 #data <- read.csv('elegidas.txt', header = F,sep = ';')
-data <- read.csv('faltantes.txt', header = F,sep = ';')
+#data <- read.csv('faltantes.txt', header = F,sep = ';')
+data <- read.csv('extra.txt', header = F,sep = ';')
 elegidas <- data[-length(data)]
 
 #OBTENER LOS ATTRS DE CADA PERTURBACION
-for (p in elegidas){ #para cada perturbación
-  nodo <- strsplit(p, split=',')[1] #nodo de la perturbación
-  per <- strsplit(p, split=',')[2] #numero de perturbación
-  archivo <- paste(nodo,'_',per,'.txt',sep='')
-  net <- loadNetwork(archivo)
-  attr <- getAttractors(net,method='sat.exhaustive') #sat.exhaustive solo da attrs, no indica vasijas
-  nombre <- paste(nodo,'_',per,'_attrs.txt', sep='')
-  l = c()
-  for (a in attr[2]){for (b in a){l <- c(l,b[1])}} #guardar solo los atractores
-  write.table(l,nombre,row.names = F,col.names = F)
-}
+p<-elegidas[6]
+#for (p in elegidas){ #para cada perturbación
+nodo <- strsplit(toString(p), split=',')[[1]][1] #nodo de la perturbación
+per <- strsplit(toString(p), split=',')[[1]][2] #numero de perturbación
+archivo <- paste(nodo,'_',per,'.txt',sep='')
+net <- loadNetwork(archivo)
+attr <- getAttractors(net,method='sat.exhaustive') #sat.exhaustive solo da attrs, no indica vasijas
+nombre <- paste(nodo,'_',per,'_attrs.txt', sep='')
+l = c()
+for (a in attr[2]){for (b in a){l <- c(l,b[1])}} #guardar solo los atractores
+write.table(l,nombre,row.names = F,col.names = F)
+#}
 
